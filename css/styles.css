@@ -524,9 +524,34 @@ section {
 
 .weather-details {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: var(--spacing-xs);
   font-size: var(--font-size-sm);
   color: var(--text-secondary);
+}
+
+.weather-date {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.weather-card.current-weather {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  color: var(--white);
+}
+
+.weather-card.current-weather .weather-date,
+.weather-card.current-weather .weather-temp,
+.weather-card.current-weather .weather-condition,
+.weather-card.current-weather .weather-details {
+  color: var(--white);
+}
+
+.weather-card.current-weather .weather-icon {
+  color: var(--white);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 /* Map Section */

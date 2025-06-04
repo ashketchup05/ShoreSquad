@@ -5,13 +5,19 @@
 
 // App Configuration
 const CONFIG = {
-  WEATHER_API_KEY: 'demo-key', // Replace with actual API key
-  WEATHER_API_URL: 'https://api.openweathermap.org/data/2.5',
+  // NEA Singapore Weather API (data.gov.sg)
+  NEA_WEATHER_API_URL: 'https://api.data.gov.sg/v1/environment',
   WEATHER_UNITS: 'metric', // Use metric units (Celsius, km/h, etc.)
-  MAP_DEFAULT_CENTER: [37.7749, -122.4194], // San Francisco
+  MAP_DEFAULT_CENTER: [1.3521, 103.8198], // Singapore
   MAP_DEFAULT_ZOOM: 10,
   ANIMATION_DURATION: 300,
-  DEBOUNCE_DELAY: 500
+  DEBOUNCE_DELAY: 500,
+  // Singapore location for weather (Pasir Ris area)
+  SINGAPORE_LOCATION: {
+    lat: 1.381497,
+    lon: 103.955574,
+    name: 'Pasir Ris Beach, Singapore'
+  }
 };
 
 // Global State
@@ -186,7 +192,7 @@ const Navigation = {
   }
 };
 
-// Weather Module
+// Weather Module - NEA Singapore API Integration
 const Weather = {
   init: () => {
     const searchBtn = document.getElementById('weather-search-btn');
@@ -203,17 +209,21 @@ const Weather = {
       locationInput.addEventListener('input', debouncedSearch);
     }
 
-    // Load default weather for user location or San Francisco
-    Weather.loadDefaultWeather();
+    // Load Singapore weather forecast
+    Weather.loadSingaporeWeather();
   },
 
-  loadDefaultWeather: async () => {
+  loadSingaporeWeather: async () => {
     try {
-      const location = await Utils.getUserLocation();
-      await Weather.fetchWeatherByCoords(location[0], location[1]);
+      Utils.showLoading();
+      await Weather.fetchNeaWeatherForecast();
+      Utils.showToast('Weather forecast updated!');
     } catch (error) {
-      console.error('Failed to load default weather:', error);
-      Weather.showDemoWeather();
+      console.error('Failed to load NEA weather:', error);
+      Utils.showToast('Unable to fetch weather data. Showing fallback data.', 'warning');
+      Weather.showFallbackWeather();
+    } finally {
+      Utils.hideLoading();
     }
   },
 
@@ -226,61 +236,177 @@ const Weather = {
     Utils.showLoading();
     
     try {
-      await Weather.fetchWeatherByLocation(location);
-      Utils.showToast('Weather data updated!');
+      // For Singapore locations, use NEA API
+      if (location.toLowerCase().includes('singapore') || 
+          location.toLowerCase().includes('pasir ris') ||
+          location.toLowerCase().includes('sg')) {
+        await Weather.fetchNeaWeatherForecast();
+        Utils.showToast('Singapore weather forecast updated!');
+      } else {
+        // For other locations, show message about Singapore focus
+        Utils.showToast('This app focuses on Singapore beach cleanups. Showing Singapore weather.', 'info');
+        await Weather.fetchNeaWeatherForecast();
+      }
     } catch (error) {
       console.error('Weather search failed:', error);
-      Utils.showToast('Unable to fetch weather data. Showing demo data.', 'warning');
-      Weather.showDemoWeather();
+      Utils.showToast('Unable to fetch weather data. Showing fallback data.', 'warning');
+      Weather.showFallbackWeather();
     } finally {
       Utils.hideLoading();
     }
   },
-  fetchWeatherByLocation: async (location) => {
-    // For demo purposes, show demo data
-    // In production, replace with actual API call:
-    // const response = await fetch(`${CONFIG.WEATHER_API_URL}/weather?q=${location}&appid=${CONFIG.WEATHER_API_KEY}&units=${CONFIG.WEATHER_UNITS}`);
-    Weather.showDemoWeather(location);
+
+  fetchNeaWeatherForecast: async () => {
+    try {
+      // Fetch 4-day weather forecast from NEA
+      const response = await fetch(`${CONFIG.NEA_WEATHER_API_URL}/4-day-weather-forecast`);
+      
+      if (!response.ok) {
+        throw new Error(`NEA API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (!data.items || !data.items[0] || !data.items[0].forecasts) {
+        throw new Error('Invalid weather data structure');
+      }
+
+      Weather.displayNeaWeather(data.items[0]);
+      AppState.currentWeatherData = data.items[0];
+      
+    } catch (error) {
+      console.error('NEA weather fetch error:', error);
+      throw error;
+    }
   },
 
-  fetchWeatherByCoords: async (lat, lon) => {
-    // For demo purposes, show demo data
-    // In production, replace with actual API call:
-    // const response = await fetch(`${CONFIG.WEATHER_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${CONFIG.WEATHER_API_KEY}&units=${CONFIG.WEATHER_UNITS}`);
-    Weather.showDemoWeather(`${lat.toFixed(2)}, ${lon.toFixed(2)}`);
-  },
-
-  showDemoWeather: (location = 'San Francisco, CA') => {
+  displayNeaWeather: (weatherData) => {
     const weatherDisplay = document.getElementById('weather-display');
-    if (!weatherDisplay) return;    const demoData = [
+    if (!weatherDisplay || !weatherData.forecasts) return;
+
+    const forecasts = weatherData.forecasts.slice(0, 4); // Show up to 4 days
+    const currentDate = new Date();
+
+    weatherDisplay.innerHTML = forecasts.map((forecast, index) => {
+      const forecastDate = new Date(forecast.date);
+      const isToday = index === 0;
+      const dayLabel = isToday ? 'Today' : Utils.formatDate(forecastDate);
+      
+      // Determine weather icon based on forecast text
+      const weatherIcon = Weather.getWeatherIcon(forecast.forecast);
+      
+      // Create weather condition description
+      const condition = Weather.formatCondition(forecast.forecast);
+      
+      return `
+        <div class="weather-card">
+          <div class="weather-icon">
+            <i class="${weatherIcon}" aria-hidden="true"></i>
+          </div>
+          <div class="weather-date">${dayLabel}</div>
+          <div class="weather-temp">${forecast.temperature.low}°C - ${forecast.temperature.high}°C</div>
+          <div class="weather-condition">${condition}</div>
+          <div class="weather-details">
+            <span><strong>Humidity:</strong> ${forecast.relative_humidity.low}%-${forecast.relative_humidity.high}%</span>
+            <span><strong>Wind:</strong> ${forecast.wind.speed.low}-${forecast.wind.speed.high} km/h ${forecast.wind.direction}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Add current conditions card as first item
+    Weather.addCurrentConditionsCard(weatherDisplay, forecasts[0]);
+  },
+
+  addCurrentConditionsCard: (container, todayForecast) => {
+    const currentTime = new Date().toLocaleTimeString('en-SG', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      timeZone: 'Asia/Singapore'
+    });
+
+    const currentCard = `
+      <div class="weather-card current-weather">
+        <div class="weather-icon">
+          <i class="fas fa-thermometer-half" aria-hidden="true"></i>
+        </div>
+        <div class="weather-date">Now (${currentTime} SGT)</div>
+        <div class="weather-temp">${Math.round((todayForecast.temperature.low + todayForecast.temperature.high) / 2)}°C</div>
+        <div class="weather-condition">Current Conditions</div>
+        <div class="weather-details">
+          <span><strong>Beach:</strong> Pasir Ris</span>
+          <span><strong>Forecast:</strong> ${Weather.formatCondition(todayForecast.forecast)}</span>
+        </div>
+      </div>
+    `;
+
+    container.insertAdjacentHTML('afterbegin', currentCard);
+  },
+
+  getWeatherIcon: (forecastText) => {
+    const text = forecastText.toLowerCase();
+    
+    if (text.includes('thunder') || text.includes('storm')) {
+      return 'fas fa-bolt';
+    } else if (text.includes('shower') || text.includes('rain')) {
+      return 'fas fa-cloud-rain';
+    } else if (text.includes('cloudy') || text.includes('overcast')) {
+      return 'fas fa-cloud';
+    } else if (text.includes('partly') || text.includes('fair')) {
+      return 'fas fa-cloud-sun';
+    } else if (text.includes('sunny') || text.includes('clear')) {
+      return 'fas fa-sun';
+    } else {
+      return 'fas fa-cloud-sun'; // Default
+    }
+  },
+
+  formatCondition: (forecastText) => {
+    // Capitalize first letter and clean up formatting
+    return forecastText.charAt(0).toUpperCase() + forecastText.slice(1).toLowerCase();
+  },
+
+  showFallbackWeather: () => {
+    const weatherDisplay = document.getElementById('weather-display');
+    if (!weatherDisplay) return;
+
+    const fallbackData = [
       {
-        title: 'Current Weather',
+        title: 'Today',
+        icon: 'fas fa-cloud-sun',
+        temp: '26°C - 32°C',
+        condition: 'Partly Cloudy',
+        details: { humidity: '70%-85%', wind: '10-20 km/h NE' }
+      },
+      {
+        title: 'Tomorrow',
+        icon: 'fas fa-cloud-rain',
+        temp: '25°C - 30°C',
+        condition: 'Light Showers',
+        details: { humidity: '75%-90%', wind: '15-25 km/h SW' }
+      },
+      {
+        title: Utils.formatDate(new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)),
         icon: 'fas fa-sun',
-        temp: '22°C',
+        temp: '27°C - 33°C',
         condition: 'Sunny',
-        details: { humidity: '65%', wind: '13 km/h', uv: 'Moderate' }
+        details: { humidity: '65%-80%', wind: '12-18 km/h E' }
       },
       {
-        title: 'Beach Conditions',
-        icon: 'fas fa-water',
-        temp: '20°C',
-        condition: 'Calm Waters',
-        details: { waves: '0.6-0.9 m', tide: 'High', visibility: 'Clear' }
-      },
-      {
-        title: 'Cleanup Rating',
-        icon: 'fas fa-star',
-        temp: '9/10',
-        condition: 'Excellent',
-        details: { wind: 'Light', rain: '0%', comfort: 'High' }
+        title: Utils.formatDate(new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)),
+        icon: 'fas fa-cloud',
+        temp: '24°C - 31°C',
+        condition: 'Overcast',
+        details: { humidity: '70%-85%', wind: '10-22 km/h SE' }
       }
     ];
 
-    weatherDisplay.innerHTML = demoData.map(item => `
+    weatherDisplay.innerHTML = fallbackData.map(item => `
       <div class="weather-card">
         <div class="weather-icon">
           <i class="${item.icon}" aria-hidden="true"></i>
         </div>
+        <div class="weather-date">${item.title}</div>
         <div class="weather-temp">${item.temp}</div>
         <div class="weather-condition">${item.condition}</div>
         <div class="weather-details">
@@ -291,7 +417,7 @@ const Weather = {
       </div>
     `).join('');
 
-    AppState.currentWeatherData = { location, data: demoData };
+    AppState.currentWeatherData = { location: CONFIG.SINGAPORE_LOCATION.name, data: fallbackData };
   }
 };
 
