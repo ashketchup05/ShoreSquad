@@ -771,6 +771,71 @@ const ErrorHandler = {
   }
 };
 
+// Next Cleanup Module
+const NextCleanup = {
+  init: () => {
+    NextCleanup.bindActions();
+  },
+
+  bindActions: () => {
+    const joinBtn = document.getElementById('join-next-cleanup');
+    const directionsBtn = document.getElementById('get-directions');
+
+    joinBtn?.addEventListener('click', NextCleanup.joinNextCleanup);
+    directionsBtn?.addEventListener('click', NextCleanup.getDirections);
+  },
+
+  joinNextCleanup: () => {
+    // Show join modal or redirect to registration
+    Utils.showToast('Awesome! You\'re signed up for the Pasir Ris cleanup! 🌊', 'success');
+    
+    // Could integrate with a backend API here
+    const eventData = {
+      location: 'Pasir Ris Beach, Singapore',
+      coordinates: [1.381497, 103.955574],
+      date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Next week
+      type: 'beach-cleanup'
+    };
+    
+    // Simulate adding to user's events
+    console.log('User joined cleanup:', eventData);
+    
+    // Update UI to show joined status
+    const joinBtn = document.getElementById('join-next-cleanup');
+    if (joinBtn) {
+      joinBtn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> Joined!';
+      joinBtn.classList.remove('btn-primary');
+      joinBtn.classList.add('btn-success');
+      joinBtn.disabled = true;
+    }
+  },
+
+  getDirections: () => {
+    // Open Google Maps with directions to the cleanup location
+    const destination = '1.381497,103.955574';
+    const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destination}&travelmode=driving`;
+    
+    // Try to get user's current location for better directions
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const mapsUrlWithOrigin = `https://www.google.com/maps/dir/${latitude},${longitude}/${destination}/?api=1&travelmode=driving`;
+          window.open(mapsUrlWithOrigin, '_blank');
+        },
+        () => {
+          // Fallback without current location
+          window.open(mapsUrl, '_blank');
+        }
+      );
+    } else {
+      window.open(mapsUrl, '_blank');
+    }
+    
+    Utils.showToast('Opening directions to Pasir Ris Beach...', 'info');
+  }
+};
+
 // App Initialization
 const App = {
   init: async () => {
@@ -782,11 +847,12 @@ const App = {
       Navigation.init();
       Accessibility.init();
       Performance.init();
-      
-      // Initialize feature modules
+        // Initialize feature modules
       Community.init();
       Weather.init();
       Events.init();
+      NextCleanup.init();
+      NextCleanup.init();
       
       // Initialize map after other modules
       await MapModule.init();
@@ -830,5 +896,6 @@ window.ShoreSquad = {
   MapModule,
   Events,
   Community,
+  NextCleanup,
   App
 };
