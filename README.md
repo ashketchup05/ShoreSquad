@@ -1,44 +1,44 @@
-# 🏖️ ShoreSquad - Beach Cleanup Community
+﻿# ðŸ–ï¸ ShoreSquad - Beach Cleanup Community
 
 > Rally your crew, track weather, and hit the next beach cleanup with our dope map app!
 
-## 🌊 About ShoreSquad
+## ðŸŒŠ About ShoreSquad
 
 ShoreSquad is a modern web application that mobilizes young people to clean beaches by combining weather tracking, interactive maps, and social features to make environmental action fun and connected. Our platform helps users discover beach cleanup events, check weather conditions, and connect with like-minded ocean defenders.
 
-## ✨ Features
+## âœ¨ Features
 
-### 🗺️ Interactive Map
+### ðŸ—ºï¸ Interactive Map
 - Real-time cleanup event locations
 - User location detection
 - Event status indicators (active, upcoming, completed)
 - Interactive event details and sign-up
 
-### 🌤️ Weather Dashboard
+### ðŸŒ¤ï¸ Weather Dashboard
 - Beach-specific weather conditions
 - Cleanup suitability ratings
 - Multi-day forecasts
 - Location-based weather search
 
-### 📅 Event Management
+### ðŸ“… Event Management
 - Discover nearby cleanup events
 - Filter events by date, location, and type
 - Join events with one click
 - Share events with friends
 
-### 👥 Community Features
+### ðŸ‘¥ Community Features
 - User profiles and achievements
 - Cleanup statistics tracking
 - Social sharing capabilities
 - Gamification with badges and leaderboards
 
-### 📱 Progressive Web App (PWA)
+### ðŸ“± Progressive Web App (PWA)
 - Installable on mobile and desktop
 - Offline functionality
 - Push notifications for new events
 - Fast loading and smooth performance
 
-## 🎨 Design System
+## ðŸŽ¨ Design System
 
 ### Color Palette
 - **Primary**: Ocean Blue (#006B96) - Trust, environmental consciousness
@@ -52,7 +52,7 @@ ShoreSquad is a modern web application that mobilizes young people to clean beac
 - **Responsive scaling**: 16px base with fluid typography
 - **Accessibility**: High contrast ratios, readable font sizes
 
-## 🚀 Getting Started
+## ðŸš€ Getting Started
 
 ### Prerequisites
 - Modern web browser (Chrome, Firefox, Safari, Edge)
@@ -101,28 +101,28 @@ ShoreSquad is a modern web application that mobilizes young people to clean beac
    - Serve the files from the project root
    - Ensure the server supports SPA routing for PWA functionality
 
-## 📁 Project Structure
+## ðŸ“ Project Structure
 
 ```
 shoresquad/
-├── index.html              # Main HTML5 document
-├── css/
-│   └── styles.css           # Complete CSS with responsive design
-├── js/
-│   └── app.js              # Main JavaScript application
-├── assets/                 # Images and icons (to be added)
-│   ├── icons/              # PWA icons
-│   ├── images/             # App images
-│   └── screenshots/        # PWA screenshots
-├── .vscode/
-│   └── settings.json       # Live Server configuration
-├── manifest.json           # PWA manifest
-├── sw.js                   # Service Worker for offline functionality
-├── .gitignore             # Git ignore rules
-└── README.md              # This file
+â”œâ”€â”€ index.html              # Main HTML5 document
+â”œâ”€â”€ css/
+â”‚   â””â”€â”€ styles.css           # Complete CSS with responsive design
+â”œâ”€â”€ js/
+â”‚   â””â”€â”€ app.js              # Main JavaScript application
+â”œâ”€â”€ assets/                 # Images and icons (to be added)
+â”‚   â”œâ”€â”€ icons/              # PWA icons
+â”‚   â”œâ”€â”€ images/             # App images
+â”‚   â””â”€â”€ screenshots/        # PWA screenshots
+â”œâ”€â”€ .vscode/
+â”‚   â””â”€â”€ settings.json       # Live Server configuration
+â”œâ”€â”€ manifest.json           # PWA manifest
+â”œâ”€â”€ sw.js                   # Service Worker for offline functionality
+â”œâ”€â”€ .gitignore             # Git ignore rules
+â””â”€â”€ README.md              # This file
 ```
 
-## 🛠️ Technology Stack
+## ðŸ› ï¸ Technology Stack
 
 ### Frontend
 - **HTML5**: Semantic markup with accessibility features
@@ -144,15 +144,15 @@ shoresquad/
 - **Web Share API**: Native sharing capabilities
 - **Push Notifications**: Event updates
 
-## 🌐 Browser Support
+## ðŸŒ Browser Support
 
-- ✅ Chrome 80+
-- ✅ Firefox 75+
-- ✅ Safari 13+
-- ✅ Edge 80+
-- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+- âœ… Chrome 80+
+- âœ… Firefox 75+
+- âœ… Safari 13+
+- âœ… Edge 80+
+- âœ… Mobile browsers (iOS Safari, Chrome Mobile)
 
-## ♿ Accessibility Features
+## â™¿ Accessibility Features
 
 - **WCAG 2.1 AA Compliance**: Color contrast, keyboard navigation
 - **Screen Reader Support**: ARIA labels, semantic HTML
@@ -160,7 +160,7 @@ shoresquad/
 - **Focus Management**: Visible focus indicators
 - **Reduced Motion**: Respects user preferences
 
-## 🔧 Customization
+## ðŸ”§ Customization
 
 ### Adding Real Weather Data
 1. Get an API key from [OpenWeatherMap](https://openweathermap.org/api)
@@ -177,7 +177,7 @@ shoresquad/
 - All colors, spacing, and typography are defined as variables
 - Responsive breakpoints can be adjusted in the CSS
 
-## 📱 PWA Installation
+## ðŸ“± PWA Installation
 
 ### Desktop
 1. Open the app in Chrome/Edge
@@ -189,7 +189,7 @@ shoresquad/
 2. Tap "Add to Home Screen" (iOS) or install prompt (Android)
 3. The app will appear as a native app icon
 
-## 🧪 Testing
+## ðŸ§ª Testing
 
 ### Manual Testing Checklist
 - [ ] Navigation works on mobile and desktop
@@ -207,7 +207,7 @@ shoresquad/
 - Accessibility testing with screen readers
 - Mobile device testing (real devices or emulators)
 
-## 🚀 Deployment
+## ðŸš€ Deployment
 
 ### Static Hosting (Recommended)
 - **Netlify**: Drag and drop deployment
@@ -221,7 +221,7 @@ shoresquad/
 3. Ensure HTTPS is enabled (required for PWA features)
 4. Test PWA functionality on the live site
 
-## 🤝 Contributing
+## ðŸ¤ Contributing
 
 We welcome contributions to ShoreSquad! Here's how to get started:
 
@@ -237,11 +237,11 @@ We welcome contributions to ShoreSquad! Here's how to get started:
 - Ensure accessibility standards are maintained
 - Update documentation as needed
 
-## 📄 License
+## ðŸ“„ License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🌊 Environmental Impact
+## ðŸŒŠ Environmental Impact
 
 ShoreSquad is committed to environmental sustainability:
 - Optimized code for reduced energy consumption
@@ -249,42 +249,19 @@ ShoreSquad is committed to environmental sustainability:
 - Promoting real-world environmental action
 - Green hosting recommendations
 
-## 📞 Support
+## ðŸ“ž Support
 
-- 📧 Email: support@shoresquad.com
-- 🐦 Twitter: [@ShoreSquad](https://twitter.com/shoresquad)
-- 📱 Instagram: [@ShoreSquadApp](https://instagram.com/shoresquadapp)
+- ðŸ“§ Email: support@shoresquad.com
+- ðŸ¦ Twitter: [@ShoreSquad](https://twitter.com/shoresquad)
+- ðŸ“± Instagram: [@ShoreSquadApp](https://instagram.com/shoresquadapp)
 
-## 🙏 Acknowledgments
+## ðŸ™ Acknowledgments
 
 - Ocean cleanup communities worldwide
-- Open source mapping and weather data providers
-- Environmental organizations inspiring this project
-- Contributors and beta testers
 
----
-
-**Made with 💙 for our oceans** 🌊
-
-*ShoreSquad - Because every beach cleanup counts!*
-#   S h o r e S q u a d 
- 
- #   S h o r e S q u a d 
- 
- #   S h o r e S q u a d 
- 
- #   S h o r e S q u a d 
- 
- #   S h o r e S q u a d 
- 
- #   S h o r e S q u a d 
- 
- #   S h o r e S q u a d 
- 
- #   S h o r e S q u a d 
- 
- #   S h o r e S q u a d 
- 
- #   S h o r e S q u a d 
- 
- 
+### 📏 Units & Measurements
+- All measurements use metric units (Celsius, km/h, meters, kilograms)
+- Weather data displays temperatures in Celsius
+- Wind speeds shown in kilometers per hour
+- Wave heights measured in meters
+- Cleanup statistics tracked in kilograms

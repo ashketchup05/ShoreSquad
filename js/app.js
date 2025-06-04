@@ -7,6 +7,7 @@
 const CONFIG = {
   WEATHER_API_KEY: 'demo-key', // Replace with actual API key
   WEATHER_API_URL: 'https://api.openweathermap.org/data/2.5',
+  WEATHER_UNITS: 'metric', // Use metric units (Celsius, km/h, etc.)
   MAP_DEFAULT_CENTER: [37.7749, -122.4194], // San Francisco
   MAP_DEFAULT_ZOOM: 10,
   ANIMATION_DURATION: 300,
@@ -235,37 +236,36 @@ const Weather = {
       Utils.hideLoading();
     }
   },
-
   fetchWeatherByLocation: async (location) => {
     // For demo purposes, show demo data
-    // In production, replace with actual API call
+    // In production, replace with actual API call:
+    // const response = await fetch(`${CONFIG.WEATHER_API_URL}/weather?q=${location}&appid=${CONFIG.WEATHER_API_KEY}&units=${CONFIG.WEATHER_UNITS}`);
     Weather.showDemoWeather(location);
   },
 
   fetchWeatherByCoords: async (lat, lon) => {
     // For demo purposes, show demo data
-    // In production, replace with actual API call
+    // In production, replace with actual API call:
+    // const response = await fetch(`${CONFIG.WEATHER_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${CONFIG.WEATHER_API_KEY}&units=${CONFIG.WEATHER_UNITS}`);
     Weather.showDemoWeather(`${lat.toFixed(2)}, ${lon.toFixed(2)}`);
   },
 
   showDemoWeather: (location = 'San Francisco, CA') => {
     const weatherDisplay = document.getElementById('weather-display');
-    if (!weatherDisplay) return;
-
-    const demoData = [
+    if (!weatherDisplay) return;    const demoData = [
       {
         title: 'Current Weather',
         icon: 'fas fa-sun',
-        temp: '72°F',
+        temp: '22°C',
         condition: 'Sunny',
-        details: { humidity: '65%', wind: '8 mph', uv: 'Moderate' }
+        details: { humidity: '65%', wind: '13 km/h', uv: 'Moderate' }
       },
       {
         title: 'Beach Conditions',
         icon: 'fas fa-water',
-        temp: '68°F',
+        temp: '20°C',
         condition: 'Calm Waters',
-        details: { waves: '2-3 ft', tide: 'High', visibility: 'Clear' }
+        details: { waves: '0.6-0.9 m', tide: 'High', visibility: 'Clear' }
       },
       {
         title: 'Cleanup Rating',
