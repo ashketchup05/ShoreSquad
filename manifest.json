@@ -1,0 +1,102 @@
+{
+  "name": "ShoreSquad - Beach Cleanup Community",
+  "short_name": "ShoreSquad",
+  "description": "Rally your crew, track weather, and hit the next beach cleanup with our dope map app!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#006B96",
+  "theme_color": "#006B96",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["lifestyle", "social", "environment"],
+  "icons": [
+    {
+      "src": "assets/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "ShoreSquad desktop interface showing beach cleanup events and weather"
+    },
+    {
+      "src": "assets/screenshot-mobile.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "ShoreSquad mobile interface with interactive map and events"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Find Events",
+      "short_name": "Events",
+      "description": "Find beach cleanup events near you",
+      "url": "/#events",
+      "icons": [{ "src": "assets/shortcut-events.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Check Weather",
+      "short_name": "Weather",
+      "description": "Check beach weather conditions",
+      "url": "/#weather",
+      "icons": [{ "src": "assets/shortcut-weather.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "View Map",
+      "short_name": "Map",
+      "description": "Interactive map of cleanup locations",
+      "url": "/#map",
+      "icons": [{ "src": "assets/shortcut-map.png", "sizes": "96x96" }]
+    }
+  ]
+}

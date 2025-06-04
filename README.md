@@ -267,14 +267,24 @@ ShoreSquad is committed to environmental sustainability:
 **Made with 💙 for our oceans** 🌊
 
 *ShoreSquad - Because every beach cleanup counts!*
-#   S h o r e S q u a d  
- #   S h o r e S q u a d  
- #   S h o r e S q u a d  
- #   S h o r e S q u a d  
- #   S h o r e S q u a d  
- #   S h o r e S q u a d  
- #   S h o r e S q u a d  
- #   S h o r e S q u a d  
- #   S h o r e S q u a d  
- #   S h o r e S q u a d  
+#   S h o r e S q u a d 
+ 
+ #   S h o r e S q u a d 
+ 
+ #   S h o r e S q u a d 
+ 
+ #   S h o r e S q u a d 
+ 
+ #   S h o r e S q u a d 
+ 
+ #   S h o r e S q u a d 
+ 
+ #   S h o r e S q u a d 
+ 
+ #   S h o r e S q u a d 
+ 
+ #   S h o r e S q u a d 
+ 
+ #   S h o r e S q u a d 
+ 
  

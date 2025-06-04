@@ -1,0 +1,66 @@
+{
+  "name": "shoresquad",
+  "version": "1.0.0",
+  "description": "Rally your crew, track weather, and hit the next beach cleanup with our dope map app!",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 3000 -c-1",
+    "dev": "npx live-server --port=3000 --entry-file=index.html",
+    "build": "echo 'No build process required for vanilla JavaScript app'",
+    "test": "echo 'Tests coming soon'",
+    "validate": "echo 'Running HTML/CSS validation...'",
+    "lighthouse": "npx lighthouse http://localhost:3000 --output=html --output-path=lighthouse-report.html",
+    "serve-https": "npx http-server -p 3000 -S -C cert.pem -K key.pem"
+  },
+  "keywords": [
+    "beach-cleanup",
+    "environment",
+    "community",
+    "ocean-conservation",
+    "pwa",
+    "weather",
+    "maps",
+    "social",
+    "sustainability"
+  ],
+  "author": "ShoreSquad Team",
+  "license": "MIT",
+  "homepage": "https://shoresquad.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shoresquad/shoresquad.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shoresquad/shoresquad/issues"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "> 1%",
+    "last 2 versions"
+  ],
+  "pwa": {
+    "name": "ShoreSquad",
+    "short_name": "ShoreSquad",
+    "theme_color": "#006B96",
+    "background_color": "#006B96",
+    "display": "standalone",
+    "start_url": "/"
+  },
+  "manifest": {
+    "name": "ShoreSquad - Beach Cleanup Community",
+    "short_name": "ShoreSquad",
+    "description": "Rally your crew, track weather, and hit the next beach cleanup with our dope map app!",
+    "theme_color": "#006B96",
+    "background_color": "#006B96",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/"
+  }
+}
